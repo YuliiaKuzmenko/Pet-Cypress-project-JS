@@ -169,3 +169,4 @@ for(let i = array3.length -1; i >= 0; i--){
 }
 
 console.log("Reversed array:", reversedArray); // Print the reversed array
+
