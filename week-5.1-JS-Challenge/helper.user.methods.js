@@ -11,6 +11,8 @@ class Helpers {
         ) {
           return user.role.status === status;
         }
+
+        //if (roleObject.status === status && roleObject.description !== null && roleObject.description !== "")
       })
       .map(function (user) {
         return user.name;
