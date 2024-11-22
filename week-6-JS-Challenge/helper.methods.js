@@ -5,20 +5,16 @@
 
 class Helpers {
     filterMatchesByLocationAndStatus(response) {
-    let status = "canceled";
-    let location = "Germany";
+    let matches = [];
    
-
-    return response.matches
-      .filter(function (match) {
-        return match.status === status && match.locationlvl1 == location;
-    })
-     
-      .map(function (match) {
-        return match.matchId;
+    response.matches.filter((match) => {
+        if(match.locationlvl1 === "Germany" && match.status === "canceled") {
+            matches.push(match.matchId);
+        }
     });
-  }
 
+    return matches;
+}
 
 // Challenge 2: Filter Matches by Coating and Shower Availability
 // Write a function to find all matches where "coating" = "Main.artificialGrass" and "isShower" = true in the array.
@@ -27,21 +23,15 @@ class Helpers {
 // console.log(filterMatchesByCoatingAndShower(response)); // Returns: ["10-015"]
 
     filterMatchesByCoatingAndShower(response) {
+        let matches = [];
 
-        let coating = "Main.artificialGrass";
-        let isShower = true;
-
-        return response.matches
-            .filter(function(match) {
-        return match.matchInfo.coating === coating && match.matchInfo.isShower === isShower;
-        })
-
-        .map(function(match) {
-        return match.matchId;
-            
-    })
+        response.matches.filter((match) => {
+            if(match.matchInfo.coating === "Main.artificialGrass" && match.matchInfo.isShower === true){
+                matches.push(match.matchId);
+            }
+        });
+        return matches;
     }
- 
 
 // Challenge 3: Filter Matches by Location and Price
 // Write a function to find all matches where "locationlvl2" = "Berlin" and "price" > 0 in the array.
@@ -51,17 +41,14 @@ class Helpers {
         
     
     filterMatchesByLocationAndPrice(response) {
-        let locationlvl2 = "Berlin";
-        let price = 0;
-        return response.matches
-            .filter(function(match) {
-        return match.locationlvl2 === locationlvl2 && match.price > price;
-        })
+        let matches = [];
 
-        .map(function(match) {
-        return match.matchId;
-            
-    })
+        response.matches.filter((match) =>{
+            if(match.locationlvl2 === "Berlin" && match.price > 0){
+                matches.push(match.matchId);
+            }
+        });
+        return matches;
     }
     
 // Challenge 4: Filter Matches by Creator Fee and Status
@@ -72,18 +59,15 @@ class Helpers {
 
 
     filterMatchesByCreatorFeeAndStatus(response) {
-        let status = "canceled";
-        let creatorFeePerPlayer = 3;
+        let matches = [];
 
-        return response.matches
-            .filter(function(match){
-                return match.status === status && match.creatorFeePerPlayer > creatorFeePerPlayer;
-            })
-
-            .map(function(match) {
-                return match.matchId;
-                    
-            })
+        response.matches.filter((match) => {
+            if(match.status === "canceled" && match.creatorFeePerPlayer > 3){
+                matches.push(match.matchId);
+            }
+        });
+        return matches;
+                        
     }
 
 
@@ -92,19 +76,18 @@ class Helpers {
 // The function should return an array of "matchId"s of the matches.
 
     filterMatchesByCoveringAndDressingRoom(response) {
-    let covering = "Main.onTheStreet";
-    let isDressingRoom = true;
 
-    return response.matches
-        .filter(function(match){
-            return match.matchInfo.covering === covering && match.matchInfo.isDressingRoom === isDressingRoom;
-        })
+    let matches = [];
 
-        .map(function(match) {
-            return match.matchId;
-                
-        })
+    response.matches.filter((match) => {
+        if(match.matchInfo.covering === "Main.onTheStreet" && match.matchInfo.isDressingRoom === true) {
+            matches.push(match.matchId);
+            console.log(matches);
+        }
+    });
+    return matches;
 }
-}
+}                
+
 
 export default new Helpers()
