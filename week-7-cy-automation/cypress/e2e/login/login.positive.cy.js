@@ -1,21 +1,20 @@
-import loginPage from "../../page_objects/login.page"
-import homePage from "../../page_objects/home.page"
-import dashboardPage from "../../page_objects/dashboard.page"
+import loginPage from "../../page_objects/login.page";
+import homePage from "../../page_objects/home.page";
+import dashboardPage from "../../page_objects/dashboard.page";
 
-describe('Login', () => {
+describe("Login", () => {
   beforeEach(() => {
-    cy.visit('/')
-  })
+    cy.visit("/");
+  });
 
-  it('Should log in with existing account as a user', () => {
+  it("Should log in with existing account as a user", () => {
     homePage.loginBtn.click();
-    loginPage.emailInput.type('ynevmyvaka@gmail.com')
-    loginPage.passwordInput.type('12345678');
-    loginPage.loginBtn.click()
+    loginPage.emailInput.type("ynevmyvaka@gmail.com");
+    loginPage.passwordInput.type("12345678");
+    loginPage.loginBtn.click();
 
     //Verify user role and title
-    dashboardPage.roleLbl.should('have.text', 'role: user')
-    cy.title().should('eq', 'User: Profile | Delek Homes')
-    
-})
-})
+    dashboardPage.roleLbl.should("have.text", "role: user");
+    cy.title().should("eq", "User: Profile | Delek Homes");
+  });
+});

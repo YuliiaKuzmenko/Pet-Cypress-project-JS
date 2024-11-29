@@ -10,8 +10,8 @@ const password = faker.string.uuid();
 
 describe("Registration", () => {
   beforeEach(() => {
-    cy.visit("/")
-  })
+    cy.visit("/");
+  });
 
   it("Should register a new user account", () => {
     homePage.registerBtn.click();
@@ -22,8 +22,8 @@ describe("Registration", () => {
     registrationPage.submitBtn.click();
 
     //Verify user role, name, url and page title
-    dashboardPage.roleLbl.should('have.text', 'role: user');
-    dashboardPage.fullNameLbl.should('have.text', 'Yuliia  Kuzmenko');
+    dashboardPage.roleLbl.should("have.text", "role: user");
+    dashboardPage.fullNameLbl.should("have.text", "Yuliia  Kuzmenko");
     cy.title().should("eq", "User: Profile | Delek Homes");
     cy.url().should("include", "dashboard/user/profile");
 
@@ -36,7 +36,7 @@ describe("Registration", () => {
     loginPage.login(email, password);
 
     //Verify user role and title
-    dashboardPage.roleLbl.should('have.text', 'role: user')
+    dashboardPage.roleLbl.should("have.text", "role: user");
     dashboardPage.fullNameLbl.should("have.text", "Yuliia  Kuzmenko");
-  })
-})
+  });
+});
