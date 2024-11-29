@@ -9,8 +9,8 @@ describe("Login", () => {
 
   it("Should log in with existing account as a user", () => {
     homePage.loginBtn.click();
-    loginPage.emailInput.type("ynevmyvaka@gmail.com");
-    loginPage.passwordInput.type("12345678");
+    loginPage.emailInpt.type("ynevmyvaka@gmail.com");
+    loginPage.passwordInpt.type("12345678");
     loginPage.loginBtn.click();
 
     //Verify user role and title

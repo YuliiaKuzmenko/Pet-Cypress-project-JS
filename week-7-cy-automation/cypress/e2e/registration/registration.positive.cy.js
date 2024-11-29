@@ -15,10 +15,10 @@ describe("Registration", () => {
 
   it("Should register a new user account", () => {
     homePage.registerBtn.click();
-    registrationPage.firstNameInput.type("Yuliia");
-    registrationPage.lastNameInput.type("Kuzmenko");
-    registrationPage.emailInput.type(email);
-    registrationPage.passwordInput.type(password);
+    registrationPage.firstNameInpt.type("Yuliia");
+    registrationPage.lastNameInpt.type("Kuzmenko");
+    registrationPage.emailInpt.type(email);
+    registrationPage.passwordInpt.type(password);
     registrationPage.submitBtn.click();
 
     //Verify user role, name, url and page title

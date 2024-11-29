@@ -15,10 +15,10 @@ describe("Registration with existing user", () => {
 
   it("Should not register with an already existin email account", () => {
     homePage.registerBtn.click();
-    registrationPage.firstNameInput.type("Yuliia");
-    registrationPage.lastNameInput.type("Kuzmenko");
-    registrationPage.emailInput.type(email);
-    registrationPage.passwordInput.type(password);
+    registrationPage.firstNameInpt.type("Yuliia");
+    registrationPage.lastNameInpt.type("Kuzmenko");
+    registrationPage.emailInpt.type(email);
+    registrationPage.passwordInpt.type(password);
     registrationPage.submitBtn.click();
 
     //Verify user role, name, url and page title
@@ -32,17 +32,14 @@ describe("Registration with existing user", () => {
     dashboardPage.logoutBtn.click();
 
     homePage.registerBtn.click();
-    registrationPage.firstNameInput.type("Yuliia");
-    registrationPage.lastNameInput.type("Kuzmenko");
-    registrationPage.emailInput.type(email);
-    registrationPage.passwordInput.type(password);
+    registrationPage.firstNameInpt.type("Yuliia");
+    registrationPage.lastNameInpt.type("Kuzmenko");
+    registrationPage.emailInpt.type(email);
+    registrationPage.passwordInpt.type(password);
     registrationPage.submitBtn.click();
 
     //Verify validation message for existing user
-    loginPage.InvalidDataAlr.should("be.visible").and(
-      "contain",
-      "Input data validation failed"
-    );
+    loginPage.InvalidDataAlr.should("be.visible").and("contain","Input data validation failed");
   });
 
   it("Sign-up with empty fields", () => {
@@ -52,15 +49,9 @@ describe("Registration with existing user", () => {
     cy.contains("Get started absolutely free.").should("be.visible");
 
     //Verify validation messages for each field
-    registrationPage.firstNameInputError.should(
-      "contain",
-      "First name required"
-    );
-    registrationPage.lastNameInputError.should("contain", "Last name required");
-    registrationPage.emailInputError.should("contain", "Email is required");
-    registrationPage.passwordInputError.should(
-      "contain",
-      "Password is required"
-    );
+    registrationPage.firstNameInptError.should("contain","First name required");
+    registrationPage.lastNameInptError.should("contain", "Last name required");
+    registrationPage.emailInptError.should("contain", "Email is required");
+    registrationPage.passwordInptError.should("contain","Password is required");
   });
 });

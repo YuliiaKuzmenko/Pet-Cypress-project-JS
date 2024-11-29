@@ -1,30 +1,30 @@
 class RegistrationPage {
-  get firstNameInput() {
+  get firstNameInpt() {
     return cy.get('[name="firstName"]');
   }
-  get lastNameInput() {
+  get lastNameInpt() {
     return cy.get('[name="lastName"]');
   }
-  get emailInput() {
+  get emailInpt() {
     return cy.get('[name="email"]');
   }
-  get passwordInput() {
+  get passwordInpt() {
     return cy.get('[name="password"]');
   }
   get submitBtn() {
     return cy.get('[type="submit"]');
   }
 
-  get firstNameInputError() {
+  get firstNameInptError() {
     return cy.get('[id*=":r5:-helper-text"]');
   }
-  get lastNameInputError() {
+  get lastNameInptError() {
     return cy.get('[id*=":r6:-helper-text"]');
   }
-  get emailInputError() {
+  get emailInptError() {
     return cy.get('[id*=":r7:-helper-text"]');
   }
-  get passwordInputError() {
+  get passwordInptError() {
     return cy.get('[id*=":r8:-helper-text"]');
   }
 }

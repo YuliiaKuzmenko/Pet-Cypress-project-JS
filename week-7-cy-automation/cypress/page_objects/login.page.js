@@ -1,10 +1,10 @@
 import homePage from "./home.page";
 
 class LoginPage {
-  get emailInput() {
+  get emailInpt() {
     return cy.get('[name="email"]');
   }
-  get passwordInput() {
+  get passwordInpt() {
     return cy.get('[name="password"]');
   }
   get loginBtn() {
@@ -15,8 +15,8 @@ class LoginPage {
   }
 
   login(email, password) {
-    this.emailInput.type(email);
-    this.passwordInput.type(password);
+    this.emailInpt.type(email);
+    this.passwordInpt.type(password);
     this.loginBtn.click();
   }
 }
