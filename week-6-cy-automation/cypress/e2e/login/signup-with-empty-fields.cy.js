@@ -13,9 +13,6 @@ describe("Sign-up-with-empty-fields", () => {
     cy.get('[id*=":r5:-helper-text"]').should("contain", "First name required");
     cy.get('[id*=":r6:-helper-text"]').should("contain", "Last name required");
     cy.get('[id*=":r7:-helper-text"]').should("contain", "Email is required");
-    cy.get('[id*=":r8:-helper-text"]').should(
-      "contain",
-      "Password is required"
-    );
+    cy.get('[id*=":r8:-helper-text"]').should("contain","Password is required");
   });
 });
