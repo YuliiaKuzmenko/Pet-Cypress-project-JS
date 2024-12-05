@@ -14,7 +14,11 @@ describe("Login", () => {
     loginPage.loginBtn.click();
 
     //Verify user role and title
+    dashboardPage.fullUserNm.should("have.text", "Yuliia  Kuzmenko");
     dashboardPage.roleLbl.should("have.text", "role: user");
     cy.title().should("eq", "User: Profile | Delek Homes");
+    dashboardPage.userIconBtn.click();
+    dashboardPage.userEmail.should("have.text", "ynevmyvaka@gmail.com");
+
   });
 });
