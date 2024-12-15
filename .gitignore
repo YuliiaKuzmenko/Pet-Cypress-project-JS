@@ -1,8 +1,8 @@
 # Ignore Mac system files
-.DS_store
+.DS_Store
 
 # Ignore node_modules folder
-node_modules
+node_modules/
 
 # Ignore all text files
 *.txt
@@ -11,4 +11,4 @@ node_modules
 .env
 
 # Ignore SASS config files
-.sass-cache
+.sass-cache/
