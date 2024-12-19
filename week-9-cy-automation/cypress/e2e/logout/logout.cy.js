@@ -1,6 +1,7 @@
 import dashboardPage from "../../page_objects/dashboard.page";
 import loginPage from "../../page_objects/login.page";
 import homePage from "../../page_objects/home.page";
+import user from "../../fixtures/testData/userCredentials.json"
 
 describe("Logout", () => {
   beforeEach(() => {
@@ -12,10 +13,7 @@ describe("Logout", () => {
     homePage.loginBtn.click();
 
     // Type in username/password
-    loginPage.emailInpt.type("ynevmyvaka@gmail.com");
-    loginPage.passwordInpt.type("12345678");
-    //Click login button
-    loginPage.loginBtn.click();
+    loginPage.login(user.email, user.password);
     //Verify user role and title
     dashboardPage.roleLbl.should("have.text", "role: realtor");
     //Verify name as well

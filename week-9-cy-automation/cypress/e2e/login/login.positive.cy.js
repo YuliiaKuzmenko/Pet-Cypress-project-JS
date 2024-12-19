@@ -1,20 +1,18 @@
 import loginPage from "../../page_objects/login.page";
-import homePage from "../../page_objects/home.page";
 import dashboardPage from "../../page_objects/dashboard.page";
+import user from "../../fixtures/testData/userCredentials.json"
 
 
 describe("Login", () => {
   beforeEach(() => {
     cy.visit("/");
+    cy.contains("Login").click()
+
   });
 
   it("Should log in with existing account as a user", () => {
-    homePage.loginBtn.click();
-    loginPage.emailInpt.type("ynevmyvaka@gmail.com");
-    loginPage.passwordInpt.type("12345678");
-    loginPage.loginBtn.click();
+    loginPage.login(user.email, user.password);
 
-    //Verify user role and title
     dashboardPage.fullUserNm.should("have.text", "Yuliia  Kuzmenko");
     dashboardPage.roleLbl.should("have.text", "role: realtor");
     cy.title().should("eq", "User: Profile | Delek Homes");
