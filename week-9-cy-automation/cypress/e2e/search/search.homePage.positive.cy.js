@@ -10,25 +10,24 @@ describe("Search homePage", () => {
   });
 
   it("Should search by keyword", () => {
-    homePage.searchFldMnPg.click().type("Spectrum");
-    homePage.startSearchBtnMnPg.click();
+    homePage.searchInputFieldMainPage.click().type("Spectrum");
+    homePage.startSearchButtonMainPage.click();
 
-    // Verify listing property on the listing page
-    featuredListingsPage.searchListingFld
+    featuredListingsPage.searchListingInputField
       .should("have.value", "Spectrum")
       .should("be.visible");
-    featuredListingsPage.listingPropertyItemTitle
+    featuredListingsPage.listingPropertyTitle
       .contains("Promenade at Irvine Spectrum")
       .should("be.visible");
   });
 
   it("Should search by bedrooms count", () => {
-    homePage.bedroomsFldMnPg.click();
-    homePage.twoPlusBedroomsNumMnPg.click();
-    homePage.startSearchBtnMnPg.click();
-    
-    featuredListingsPage.itemsInSearchList.each(($el) => {
-    cy.wrap($el)
+    homePage.bedroomsDropdownListMainPage.click();
+    homePage.twoPlusBedroomsNumberMainPage.click();
+    homePage.startSearchButtonMainPage.click();
+
+    featuredListingsPage.propertiesInSearchList.each(($el) => {
+      cy.wrap($el)
         .invoke("text")
         .then((text) => {
           const match = text.split("Bedrooms: ")[1];
@@ -46,18 +45,42 @@ describe("Search homePage", () => {
   });
 
   it("Should search by city", () => {
-  homePage.cityMnPg.click().type("Irvine");
-  homePage.startSearchBtnMnPg.click();
-  // Verify listing city on the listing page
-  featuredListingsPage.listingPropertyCity.contains("City: Irvine").should("be.visible");
-  featuredListingsPage.listingMoreInfoBtn.click();
+    homePage.cityInputFieldMainPage.click().type("Irvine");
+    homePage.startSearchButtonMainPage.click();
+    featuredListingsPage.listingPropertyCityName
+      .contains("City: Irvine")
+      .should("be.visible");
+    featuredListingsPage.listingPropertyTitle
+      .contains("Promenade at Irvine Spectrum")
+      .should("be.visible");
+    featuredListingsPage.listingPropertyBedroomsNumber
+      .contains("2")
+      .should("be.visible");
+    featuredListingsPage.listingPropertyPriceLabel
+      .contains("$ 560,000")
+      .should("be.visible");
+    featuredListingsPage.listingMoreInfoButton.click();
+    featuredListingsPage.currentPropertyTitle
+      .contains("Promenade at Irvine Spectrum")
+      .should("be.visible");
+    featuredListingsPage.currentPropertyBedroomsNumber
+      .contains("2")
+      .should("be.visible");
+    featuredListingsPage.currentPropertyPrice
+      .contains("$ 560,000")
+      .should("be.visible");
   });
 
   it("Should search by price", () => {
     cy.visit(
       "/featured-listings?price=500000-8400000&keyword=Spectrum&bedrooms=2&city=Irvine"
     );
-    featuredListingsPage.listingPropertyPriceLbl
-    .contains("$ 560,000").should("be.visible")
+    featuredListingsPage.listingPriceVefification
+      .invoke("text")
+      .then((text) => {
+        const tmp = parseInt(text.replace("$ ", "").replace(/,/g, ""), 10);
+        expect(tmp).to.be.above(5000000);
+        expect(tmp).to.be.below(8400000);
+      });
   });
 });

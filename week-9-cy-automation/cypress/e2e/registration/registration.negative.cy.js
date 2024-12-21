@@ -14,44 +14,49 @@ describe("Registration with existing user", () => {
   });
 
   it("Should not register with an already existin email account", () => {
-    homePage.registerBtn.click();
-    registrationPage.firstNameInpt.type("Yuliia");
-    registrationPage.lastNameInpt.type("Kuzmenko");
-    registrationPage.emailInpt.type(email);
-    registrationPage.passwordInpt.type(password);
-    registrationPage.submitBtn.click();
+    homePage.registerFormLink.click();
+    registrationPage.firstNameInputField.type("Yuliia");
+    registrationPage.lastNameInputField.type("Kuzmenko");
+    registrationPage.emailInputField.type(email);
+    registrationPage.passwordInputField.type(password);
+    registrationPage.submitButton.click();
 
-    //Verify user role, name, url and page title
-    dashboardPage.roleLbl.should("have.text", "role: user");
-    dashboardPage.fullNameLbl.should("have.text", "Yuliia  Kuzmenko");
+    dashboardPage.roleLabel.should("have.text", "role: user");
+    dashboardPage.fullNameLabel.should("have.text", "Yuliia  Kuzmenko");
     cy.title().should("eq", "User: Profile | Delek Homes");
     cy.url().should("include", "dashboard/user/profile");
 
-    //Click user icon and logout button
-    dashboardPage.userIconBtn.click();
-    dashboardPage.logoutBtn.click();
+    dashboardPage.userIconButton.click();
+    dashboardPage.logoutButton.click();
 
-    homePage.registerBtn.click();
-    registrationPage.firstNameInpt.type("Yuliia");
-    registrationPage.lastNameInpt.type("Kuzmenko");
-    registrationPage.emailInpt.type(email);
-    registrationPage.passwordInpt.type(password);
-    registrationPage.submitBtn.click();
+    homePage.registerFormLink.click();
+    registrationPage.firstNameInputField.type("Yuliia");
+    registrationPage.lastNameInputField.type("Kuzmenko");
+    registrationPage.emailInputField.type(email);
+    registrationPage.passwordInputField.type(password);
+    registrationPage.submitButton.click();
 
-    //Verify validation message for existing user
-    loginPage.InvalidDataAlr.should("be.visible").and("contain","Input data validation failed");
+    loginPage.InvalidDataAlert.should("be.visible").and(
+      "contain",
+      "Input data validation failed"
+    );
   });
 
   it("Sign-up with empty fields", () => {
-    homePage.registerBtn.click();
-    registrationPage.submitBtn.click();
+    homePage.registerFormLink.click();
+    registrationPage.submitButton.click();
 
     cy.contains("Get started absolutely free.").should("be.visible");
 
-    //Verify validation messages for each field
-    registrationPage.firstNameInptError.should("contain","First name required");
-    registrationPage.lastNameInptError.should("contain", "Last name required");
-    registrationPage.emailInptError.should("contain", "Email is required");
-    registrationPage.passwordInptError.should("contain","Password is required");
+    registrationPage.firstNameInputError.should(
+      "contain",
+      "First name required"
+    );
+    registrationPage.lastNameInputError.should("contain", "Last name required");
+    registrationPage.emailInputError.should("contain", "Email is required");
+    registrationPage.passwordInputError.should(
+      "contain",
+      "Password is required"
+    );
   });
 });

@@ -1,22 +1,22 @@
 class DashboardPage {
-  get roleLbl() {
+  get roleLabel() {
     return cy.get("a p");
   }
-  get fullNameLbl() {
+  get fullNameLabel() {
     return cy.get("h6");
   }
-  get fullUserNm() {
+  get fullUserName() {
     return cy.get("h6");
   }
 
   //User icon menu
-  get userIconBtn() {
+  get userIconButton() {
     return cy.get('button [class*= "MuiAvatar-root"]');
   }
   get userEmail() {
     return cy.get('div[class = "MuiBox-root css-1y19tqg"]');
   }
-  get logoutBtn() {
+  get logoutButton() {
     return cy.contains("Logout");
   }
 }

@@ -10,22 +10,24 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('loginApi', (email = "qa-default@gmail.com", password = "12345678") => {    
-    cy.request('POST', '/api/users/login', {
-    "email": email,
-    "password": password
-    }).then(
-    (response) => {
-      // response.body is automatically serialized into JSON
-      window.localStorage.setItem('accessToken', response.body.accessToken)
-    }
-  )
-})
-Cypress.on("uncaught:exception", (err, runnable) => {
-    // returning false here prevents Cypress from
-    // failing the test
-    return false;
+
+Cypress.Commands.add("loginApi", (role = "User") => {
+  cy.fixture("testData/userCredentials.json").then((users) => {
+    const { email, password } = users[role];
+    cy.request("POST", "/api/users/login", {
+      email: email,
+      password: password,
+    }).then((response) => {
+      window.localStorage.setItem("accessToken", response.body.accessToken);
+    });
   });
+});
+
+Cypress.on("uncaught:exception", (err, runnable) => {
+  // returning false here prevents Cypress from
+  // failing the test
+  return false;
+});
 //
 //
 // -- This is a child command --
