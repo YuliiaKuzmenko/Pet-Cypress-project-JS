@@ -14,29 +14,29 @@ describe("Registration", () => {
   });
 
   it("Should register a new user account", () => {
-    homePage.registerBtn.click();
-    registrationPage.firstNameInpt.type("Yuliia");
-    registrationPage.lastNameInpt.type("Kuzmenko");
-    registrationPage.emailInpt.type(email);
-    registrationPage.passwordInpt.type(password);
-    registrationPage.submitBtn.click();
+    homePage.registerFormLink.click();
+    registrationPage.firstNameInputField.type("Yuliia");
+    registrationPage.lastNameInputField.type("Kuzmenko");
+    registrationPage.emailInputField.type(email);
+    registrationPage.passwordInputField.type(password);
+    registrationPage.submitButton.click();
 
     //Verify user role, name, url and page title
-    dashboardPage.roleLbl.should("have.text", "role: user");
-    dashboardPage.fullNameLbl.should("have.text", "Yuliia  Kuzmenko");
+    dashboardPage.roleLabel.should("have.text", "role: user");
+    dashboardPage.fullNameLabel.should("have.text", "Yuliia  Kuzmenko");
     cy.title().should("eq", "User: Profile | Delek Homes");
     cy.url().should("include", "dashboard/user/profile");
 
     //Click user icon and logout button
-    dashboardPage.userIconBtn.click();
-    dashboardPage.logoutBtn.click();
+    dashboardPage.userIconButton.click();
+    dashboardPage.logoutButton.click();
 
     //Click login btn and login with new user
-    loginPage.loginBtn.click();
+    loginPage.loginButton.click();
     loginPage.login(email, password);
 
     //Verify user role and title
-    dashboardPage.roleLbl.should("have.text", "role: user");
-    dashboardPage.fullNameLbl.should("have.text", "Yuliia  Kuzmenko");
+    dashboardPage.roleLabel.should("have.text", "role: user");
+    dashboardPage.fullNameLabel.should("have.text", "Yuliia  Kuzmenko");
   });
 });

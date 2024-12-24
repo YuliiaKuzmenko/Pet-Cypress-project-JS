@@ -1,11 +1,5 @@
-import featuredLisitingsPage from "../../../page_objects/featuredLisitingsPage";
+import featuredListingsPage from "../../../page_objects/featuredListingsPage";
 import homePage from "../../../page_objects/home.page";
-
-Cypress.on("uncaught:exception", (err, runnable) => {
-  // returning false here prevents Cypress from
-  // failing the test
-  return false;
-});
 
 let bedrooms = [];
 
@@ -20,10 +14,10 @@ describe("Search homePage", () => {
     homePage.startSearchBtnMnPg.click();
 
     // Verify listing property on the listing page
-    featuredLisitingsPage.searchListingFld
+    featuredListingsPage.searchListingFld
       .should("have.value", "Spectrum")
       .should("be.visible");
-    featuredLisitingsPage.listingPropertyItemTitle
+    featuredListingsPage.listingPropertyItemTitle
       .contains("Promenade at Irvine Spectrum")
       .should("be.visible");
   });
@@ -33,7 +27,7 @@ describe("Search homePage", () => {
     homePage.twoPlusBedroomsNumMnPg.click();
     homePage.startSearchBtnMnPg.click();
     
-    featuredLisitingsPage.itemsInSearchList.each(($el) => {
+    featuredListingsPage.itemsInSearchList.each(($el) => {
     cy.wrap($el)
         .invoke("text")
         .then((text) => {
@@ -52,18 +46,18 @@ describe("Search homePage", () => {
   });
 
   it("Should search by city", () => {
-  homePage.cityMnPg.click().type("Irvine");
-  homePage.startSearchBtnMnPg.click();
-  // Verify listing city on the listing page
-  featuredLisitingsPage.listingPropertyCity.contains("City: Irvine").should("be.visible");
-  featuredLisitingsPage.listingMoreInfoBtn.click();
+    homePage.cityMnPg.click().type("Irvine");
+    homePage.startSearchBtnMnPg.click();
+    // Verify listing city on the listing page
+    featuredListingsPage.listingPropertyCity.contains("City: Irvine").should("be.visible");
+    featuredListingsPage.listingMoreInfoBtn.click();
   });
 
   it("Should search by price", () => {
     cy.visit(
       "/featured-listings?price=500000-8400000&keyword=Spectrum&bedrooms=2&city=Irvine"
     );
-    featuredLisitingsPage.listingPropertyPriceLbl
+    featuredListingsPage.listingPropertyPriceLbl
     .contains("$ 560,000").should("be.visible")
   });
 });
