@@ -39,7 +39,7 @@ class FeaturedListingsPage {
     );
   }
   get listingPropertyPriceLabel() {
-    return cy.get('div[class*="MuiBox-root css-6yrxxf"]');
+    return cy.get('#root > div > div.MuiBox-root.css-0 > div > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3.css-1h77wgb > div:nth-child(1) > div > div.MuiBox-root.css-79elbk > div.MuiBox-root.css-dc9kff');
   }
   get listingPriceVefification(){
     return cy.get('[class*="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"] [class="MuiBox-root css-79elbk"]');
