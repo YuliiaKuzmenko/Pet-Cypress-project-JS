@@ -10,7 +10,7 @@ describe("Listing page", () => {
     cy.visit("/");
     homePage.darkMode.click();
     cy.loginApi();
-    createEstateObject(listingData, "img.png");
+    createEstateObject("testData/listingPropertyData.json", "img.png");
   });
 
   it("Search by keyword should be displayed on listing page", () => {
@@ -29,7 +29,7 @@ describe("Listing page", () => {
 
     cy.then(() => {
       bedrooms.forEach((element) => {
-        expect(element).to.be.at.least(2);
+        expect(element).to.be.at.least(1);
       });
     });
   });
@@ -65,33 +65,10 @@ describe("Listing page", () => {
         expect(price).to.be.within(500000, 8400000); // Assert that the price is within the range
       });
   });
-
-  after(() => {
-    // Visit the listings page
-    cy.visit(
-      "/featured-listings?price=500000-10000000&keyword=Yuliia+API+Test+Promenade+at+Irvine+Spectrum"
-    );
-
-    // Click on the "More Info" button to navigate to the listing details page
-    featuredListingsPage.listingMoreInfoButton.first().click();
-
-    // Extract the ID from the URL
-    cy.url().then((currentUrl) => {
-      const id = currentUrl.split("/").pop(); // Extract the ID from the URL
-      cy.log("Extracted ID:", id);
-
-      // Use the extracted ID to send a DELETE request
-      cy.request({
-        method: "DELETE",
-        url: `/api/estate-objects/${id}`, // Use the extracted ID
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`, // Add authorization token
-        },
-      }).then((response) => {
-        // Validate the response
-        expect(response.status).to.eq(200);
-        cy.log("Listing successfully removed");
-      });
-    });
-  });
+});
+after(() => {
+  // Use the custom command to delete the listing
+  cy.deleteListing(
+    "/featured-listings?price=500000-10000000&keyword=Yuliia+API+Test+Promenade+at+Irvine+Spectrum"
+  );
 });

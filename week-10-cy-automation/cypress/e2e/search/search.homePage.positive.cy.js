@@ -10,7 +10,7 @@ describe("Search homePage", () => {
     cy.visit("/");
     homePage.darkMode.click();
     cy.loginApi();
-    createEstateObject(listingData, "img.png");
+    createEstateObject("testData/listingPropertyData.json", "img.png");
   });
 
   it("Should search by keyword", () => {
@@ -66,7 +66,7 @@ describe("Search homePage", () => {
       .contains(listingData.bedrooms)
       .should("be.visible");
     featuredListingsPage.listingPropertyPriceLabelDRMode
-      .contains("$ 580,000")
+      .contains(listingData.priceWithCurrencySign)
       .should("be.visible");
     featuredListingsPage.listingMoreInfoButton.first().click();
     featuredListingsPage.currentPropertyTitle
@@ -77,7 +77,7 @@ describe("Search homePage", () => {
       .contains(listingData.bedrooms)
       .should("be.visible");
     featuredListingsPage.currentPropertyPrice
-      .contains("$ 580,000")
+      .contains(listingData.priceWithCurrencySign)
       .should("be.visible");
   });
 
@@ -94,32 +94,9 @@ describe("Search homePage", () => {
       });
   });
 });
-
 after(() => {
-  // Visit the listings page
-  cy.visit(
+  // Use the custom command to delete the listing
+  cy.deleteListing(
     "/featured-listings?price=500000-10000000&keyword=Yuliia+API+Test+Promenade+at+Irvine+Spectrum"
   );
-
-  // Click on the "More Info" button to navigate to the listing details page
-  featuredListingsPage.listingMoreInfoButton.first().click();
-
-  // Extract the ID from the URL
-  cy.url().then((currentUrl) => {
-    const id = currentUrl.split("/").pop(); // Extract the ID from the URL
-    cy.log("Extracted ID:", id);
-
-    // Use the extracted ID to send a DELETE request
-    cy.request({
-      method: "DELETE",
-      url: `/api/estate-objects/${id}`, // Use the extracted ID
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`, // Add authorization token
-      },
-    }).then((response) => {
-      // Validate the response
-      expect(response.status).to.eq(200);
-      cy.log("Listing successfully removed");
-    });
-  });
 });

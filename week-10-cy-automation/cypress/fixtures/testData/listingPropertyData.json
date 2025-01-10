@@ -1,5 +1,5 @@
 {
-   "title": "Promenade at Irvine Spectrum",
+   "title": "Yuliia API Test Promenade at Irvine Spectrum",
    "description": "Fancy house close to the center",
    "address": "117 Port",
    "city": "Irvine",
@@ -11,7 +11,8 @@
    "garage": 2,
    "sqft": 924,
    "lotSize": 8000,
-   "isPublished": false,
-   "keyword": "Spectrum"
+   "isPublished": true,
+   "keyword": "Spectrum",
+   "priceWithCurrencySign": "$ 580,000"
 }
 

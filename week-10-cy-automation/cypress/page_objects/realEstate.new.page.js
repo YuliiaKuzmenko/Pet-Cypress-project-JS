@@ -62,6 +62,9 @@ class newListing {
   get postButton() {
     return cy.get('button[class*="MuiButtonBase-root"][type="submit"][id*="rd"]');
   }
+  get listOfProperties(){
+    return cy.get('div[class*="MuiContainer-root MuiContainer-maxWidthLg css-1qsxih2"]');
+  }
 }
 
 export default new newListing();

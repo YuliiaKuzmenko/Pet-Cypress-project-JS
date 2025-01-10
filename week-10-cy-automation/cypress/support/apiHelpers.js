@@ -1,24 +1,26 @@
 // cypress/support/apiHelpers.js
-export function createEstateObject(listingData, imagePath) {
-    cy.fixture("img.png").then((image) => {
-        //convert image to binary
-        const blob = Cypress.Blob.base64StringToBlob(image, "image/png");
-  
-        const formData = new FormData();
-        formData.append("images", blob);
-        formData.append("title", "Yuliia API Test Promenade at Irvine Spectrum");
-        formData.append("description", "Fancy house close to the center");
-        formData.append("address", "117 Port");
-        formData.append("city", "Irvine");
-        formData.append("state", "CA");
-        formData.append("zipCode", 75206);
-        formData.append("price", 580000);
-        formData.append("bedrooms", 2);
-        formData.append("bathrooms", 3);
-        formData.append("garage", 2);
-        formData.append("sqft", 924);
-        formData.append("lotSize", 8000);
-        formData.append("isPublished", true);
+export function createEstateObject(listingDataFile, imagePath) {
+  // Load the JSON data using cy.fixture
+  cy.fixture(listingDataFile).then((listingData) => {
+    cy.fixture(imagePath).then((image) => {
+      // Convert image to binary
+      const blob = Cypress.Blob.base64StringToBlob(image, "image/png");
+
+      const formData = new FormData();
+      formData.append("images", blob);
+      formData.append("title", listingData.title);
+      formData.append("description", listingData.description);
+      formData.append("address", listingData.address);
+      formData.append("city", listingData.city);
+      formData.append("state", listingData.state);
+      formData.append("zipCode", listingData.zipCode);
+      formData.append("price", listingData.price);
+      formData.append("bedrooms", listingData.bedrooms);
+      formData.append("bathrooms", listingData.bathrooms);
+      formData.append("garage", listingData.garage);
+      formData.append("sqft", listingData.sqft);
+      formData.append("lotSize", listingData.lotSize);
+      formData.append("isPublished", listingData.isPublished);
   
         cy.request({
           method: "POST",
@@ -29,13 +31,12 @@ export function createEstateObject(listingData, imagePath) {
           },
         }).then((response) => {
           expect(response.status).to.be.oneOf([200, 201]);
-          const enc = new TextDecoder("utf-8");
-          const data = new Uint8Array(response.body);
-          const responseBody = JSON.parse(enc.decode(data));
+          console.log(response.body);
   
           console.log(response.body);
         });
       });
+    });
     }
 
 

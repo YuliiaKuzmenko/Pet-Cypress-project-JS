@@ -8,8 +8,6 @@ class DashboardPage {
   get fullUserName() {
     return cy.get("h6");
   }
-
-  //User icon menu
   get userIconButton() {
     return cy.get('button [class*= "MuiAvatar-root"]');
   }
@@ -17,9 +15,8 @@ class DashboardPage {
     return cy.get('div[class = "MuiBox-root css-1y19tqg"]');
   }
   get logoutButton() {
-    return cy.contains("Logout");
+    return cy.contains("Logout").click();
   }
 }
 
 export default new DashboardPage();
-

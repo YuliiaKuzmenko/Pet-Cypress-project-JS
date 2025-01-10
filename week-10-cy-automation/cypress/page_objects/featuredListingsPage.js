@@ -34,7 +34,7 @@ class FeaturedListingsPage {
     );
   }
   get listingPropertyCityName() {
-    return cy.get('#root > div > div.MuiBox-root.css-0 > div > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3.css-1h77wgb > div > div > div.MuiCardContent-root.css-lmipfk > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-1.css-1na5d0x > div:nth-child(5)');
+    return cy.get('div:nth-of-type(5)[class *="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"]');
   }
   get listingPropertyPriceLabelDRMode() {
     return cy.get('div[class*="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiCard-root css-szgt2f"] div div[class*="MuiBox-root css-6yrxxf"]');
