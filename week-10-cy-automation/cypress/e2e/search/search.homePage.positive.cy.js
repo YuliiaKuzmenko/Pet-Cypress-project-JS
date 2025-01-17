@@ -1,30 +1,37 @@
 import featuredListingsPage from "../../page_objects/featuredListingsPage";
 import homePage from "../../page_objects/home.page";
+import listingData from "../../fixtures/testData/listingPropertyData.json";
+import { createEstateObject } from "../../support/apiHelpers";
 
 let bedrooms = [];
 
 describe("Search homePage", () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit("/");
     homePage.darkMode.click();
+    cy.loginApi();
+    createEstateObject("testData/listingPropertyData.json", "img.png");
   });
 
   it("Should search by keyword", () => {
-    homePage.searchInputFieldMainPage.click().type("Spectrum");
-    homePage.startSearchButtMainPage.click();
+    cy.visit("/");
+    homePage.searchInputFieldMainPage.type(listingData.keyword);
+    homePage.startSearchButtonMainPage.click();
 
     featuredListingsPage.searchListingInputField
-      .should("have.value", "Spectrum")
+      .should("have.value", listingData.keyword)
       .should("be.visible");
     featuredListingsPage.listingPropertyTitle
-      .contains("Promenade at Irvine Spectrum")
+      .contains(listingData.title)
       .should("be.visible");
   });
 
   it("Should search by bedrooms count", () => {
+    cy.visit("/");
+    homePage.darkMode.click();
     homePage.bedroomsDropdownListMainPage.click();
     homePage.twoPlusBedroomsNumberMainPage.click();
-    homePage.startSearchButtMainPage.click();
+    homePage.startSearchButtonMainPage.click();
 
     featuredListingsPage.propertiesInSearchList.each(($el) => {
       cy.wrap($el)
@@ -45,29 +52,32 @@ describe("Search homePage", () => {
   });
 
   it("Should search by city", () => {
-    homePage.cityInputFieldMainPage.click().type("Irvine");
-    homePage.startSearchButtMainPage.click();
+    cy.visit("/");
+    homePage.darkMode.click();
+    homePage.cityInputFieldMainPage.type(listingData.city);
+    homePage.startSearchButtonMainPage.click();
     featuredListingsPage.listingPropertyCityName
-      .contains("City: Irvine")
+      .contains(listingData.city)
       .should("be.visible");
     featuredListingsPage.listingPropertyTitle
-      .contains("Promenade at Irvine Spectrum")
+      .contains(listingData.title)
       .should("be.visible");
     featuredListingsPage.listingPropertyBedroomsNumber
-      .contains("2")
+      .contains(listingData.bedrooms)
       .should("be.visible");
-    featuredListingsPage.listingPropertyPriceLabel
-      .contains("$ 560,000")
+    featuredListingsPage.listingPropertyPriceLabelDRMode
+      .contains(listingData.priceWithCurrencySign)
       .should("be.visible");
-    featuredListingsPage.listingMoreInfoButton.click();
+    featuredListingsPage.listingMoreInfoButton.first().click();
     featuredListingsPage.currentPropertyTitle
-      .contains("Promenade at Irvine Spectrum")
+      .contains(listingData.title)
       .should("be.visible");
     featuredListingsPage.currentPropertyBedroomsNumber
-      .contains("2")
+      .first()
+      .contains(listingData.bedrooms)
       .should("be.visible");
     featuredListingsPage.currentPropertyPrice
-      .contains("$ 560,000")
+      .contains(listingData.priceWithCurrencySign)
       .should("be.visible");
   });
 
@@ -79,8 +89,14 @@ describe("Search homePage", () => {
       .invoke("text")
       .then((text) => {
         const tmp = parseInt(text.replace("$ ", "").replace(/,/g, ""), 10);
-        expect(tmp).to.be.above(5000000);
-        expect(tmp).to.be.below(8400000);
+        expect(tmp).to.be.above(500000);
+        expect(tmp).to.be.below(840000);
       });
   });
+});
+after(() => {
+  // Use the custom command to delete the listing
+  cy.deleteListing(
+    "/featured-listings?price=500000-10000000&keyword=Yuliia+API+Test+Promenade+at+Irvine+Spectrum"
+  );
 });
